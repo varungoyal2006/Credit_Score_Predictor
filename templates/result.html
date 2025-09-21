@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Credit Score Result</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .result-container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        animation: slideUp 0.8s ease-out;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .header {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        padding: 40px;
+        color: white;
+      }
+
+      .header h1 {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      .header p {
+        font-size: 1rem;
+        opacity: 0.9;
+      }
+
+      .content {
+        padding: 50px 40px;
+      }
+
+      .score-display {
+        margin-bottom: 40px;
+      }
+
+      .score-circle {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        margin: 0 auto 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: conic-gradient(
+          from 0deg,
+          #ff6b6b 0%,
+          #ffa500 33%,
+          #4ecdc4 66%,
+          #45b7d1 100%
+        );
+        animation: rotateGradient 3s ease-in-out;
+      }
+
+      @keyframes rotateGradient {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .score-inner {
+        width: 160px;
+        height: 160px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .score-number {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #333;
+        margin-bottom: 5px;
+        animation: countUp 2s ease-out;
+      }
+
+      @keyframes countUp {
+        from {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .score-label {
+        font-size: 0.9rem;
+        color: #666;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .prediction-text {
+        font-size: 1.3rem;
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 30px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 15px;
+        border-left: 5px solid #4facfe;
+      }
+
+      .score-interpretation {
+        margin-bottom: 40px;
+      }
+
+      .interpretation-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .interpretation-text {
+        font-size: 1rem;
+        color: #666;
+        line-height: 1.6;
+        padding: 15px;
+        background: #f1f3f4;
+        border-radius: 10px;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 15px 30px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: #667eea;
+        border: 2px solid #667eea;
+      }
+
+      .btn-secondary:hover {
+        background: #667eea;
+        color: white;
+        transform: translateY(-3px);
+      }
+
+      .tips-section {
+        margin-top: 40px;
+        padding: 25px;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        border-radius: 15px;
+        color: white;
+      }
+
+      .tips-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+
+      .tips-list {
+        text-align: left;
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .tips-list ul {
+        padding-left: 20px;
+      }
+
+      .tips-list li {
+        margin-bottom: 8px;
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 1.8rem;
+        }
+
+        .content {
+          padding: 40px 30px;
+        }
+
+        .score-circle {
+          width: 160px;
+          height: 160px;
+        }
+
+        .score-inner {
+          width: 130px;
+          height: 130px;
+        }
+
+        .score-number {
+          font-size: 2.5rem;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="result-container">
+      <div class="header">
+        <h1>Your Credit Score</h1>
+        <p>Based on your financial profile</p>
+      </div>
+
+      <div class="content">
+        <div class="score-display">
+          <div class="score-circle">
+            <div class="score-inner">
+              <div
+                class="score-number"
+                id="scoreNumber"
+              >
+                {{ prediction_text.split(':')[1].strip() }}
+              </div>
+              <div class="score-label">Score</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prediction-text">{{ prediction_text }}</div>
+
+        <div class="score-interpretation">
+          <div class="interpretation-title">Score Interpretation</div>
+          <div
+            class="interpretation-text"
+            id="interpretation"
+          >
+            <!-- Interpretation will be set by JavaScript based on score -->
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <a
+            href="/"
+            class="btn btn-primary"
+          >
+            Check Another Score
+          </a>
+          <button
+            class="btn btn-secondary"
+            onclick="window.print()"
+          >
+            Save Result
+          </button>
+        </div>
+
+        <div class="tips-section">
+          <div class="tips-title">💡 Tips to Improve Your Credit Score</div>
+          <div class="tips-list">
+            <ul>
+              <li>Pay your bills on time consistently</li>
+              <li>Keep credit utilization below 30%</li>
+              <li>Maintain a good mix of credit accounts</li>
+              <li>Avoid applying for multiple credits frequently</li>
+              <li>Monitor your credit report regularly</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Get the predicted score and provide interpretation
+      const scoreElement = document.getElementById("scoreNumber");
+      const interpretationElement = document.getElementById("interpretation");
+      const score = parseInt(scoreElement.textContent);
+
+      let interpretation = "";
+      let scoreClass = "";
+
+      if (score >= 750) {
+        interpretation =
+          "Excellent! You have a very good credit score. Lenders will likely offer you the best terms and lowest interest rates.";
+        scoreClass = "excellent";
+      } else if (score >= 700) {
+        interpretation =
+          "Good credit score! You should qualify for most credit products with favorable terms.";
+        scoreClass = "good";
+      } else if (score >= 650) {
+        interpretation =
+          "Fair credit score. You may qualify for credit but might face higher interest rates.";
+        scoreClass = "fair";
+      } else if (score >= 600) {
+        interpretation =
+          "Below average credit score. Consider improving your financial habits to boost your score.";
+        scoreClass = "below-average";
+      } else {
+        interpretation =
+          "Poor credit score. Focus on building better financial habits and paying off existing debts.";
+        scoreClass = "poor";
+      }
+
+      interpretationElement.textContent = interpretation;
+
+      // Add some dynamic effects
+      setTimeout(() => {
+        scoreElement.style.color = getScoreColor(score);
+      }, 2000);
+
+      function getScoreColor(score) {
+        if (score >= 750) return "#4ecdc4";
+        if (score >= 700) return "#45b7d1";
+        if (score >= 650) return "#ffa500";
+        if (score >= 600) return "#ff8c42";
+        return "#ff6b6b";
+      }
+    </script>
+  </body>
+</html>
