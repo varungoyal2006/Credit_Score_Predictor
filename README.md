@@ -1,33 +1,34 @@
-# Flask Credit Score Predictor 
+# Credit Score Prediction Model 
 
 !
 
-A web application built with Flask that predicts a user's credit score based on various financial and personal attributes. The prediction model is an XGBoost Regressor trained on a synthetically generated dataset reflecting real-world financial behaviors.
+This project provides a machine learning model to predict a user's credit score based on various financial and personal attributes. The prediction model is an `XGBoost Regressor` trained on a synthetically generated dataset reflecting real-world financial behaviors.
+
+A simple web interface is included for demonstration purposes.
 
 ## ✨ Features
 
--   **Interactive Web Form**: A user-friendly interface to input financial data.
--   **Machine Learning Model**: Utilizes a pre-trained `XGBoost` model for accurate predictions.
+-   **Predictive Model**: Utilizes a pre-trained `XGBoost` model for accurate credit score prediction.
 -   **Data Preprocessing**: Implements a `scikit-learn` pipeline to handle categorical and numerical data seamlessly.
--   **Easy to Deploy**: A lightweight Flask application ready for deployment.
+-   **Ready to Use**: Contains all necessary model files (`.pkl`) for easy integration into other applications.
+-   **Demo Interface**: Includes a lightweight web application to demonstrate the model's functionality.
 
 ---
 
 ## 🛠️ Technology Stack
 
--   **Backend**: Flask
--   **Machine Learning**: Scikit-learn, XGBoost, Pandas
--   **Frontend**: HTML/CSS (via Jinja2 templates)
+-   **Core Model**: Python, Scikit-learn, XGBoost, Pandas
+-   **Demonstration App**: Flask
 
 ---
 
 ## 🚀 Getting Started
 
-Follow these instructions to get a copy of the project up and running on your local machine.
+Follow these instructions to run the demonstration web app on your local machine.
 
 ### Prerequisites
 
-Make sure you have Python 3 installed. You'll also need to install the required libraries.
+You'll need Python 3 and the required libraries.
 
 ```bash
 pip install flask pandas scikit-learn xgboost
